@@ -36,6 +36,8 @@ socklen_t sockaddr_init(const char* socketFile, struct sockaddr_un* sa) {
     bzero(sa, sizeof(struct sockaddr_un));
     sa->sun_family = AF_UNIX;
     strcpy(sa->sun_path, socketFile);
+    if (socketFile[0]=='@')
+      sa->sun_path[0] = 0;
 
     salen = SUN_LEN(sa);
     return salen;
